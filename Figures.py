@@ -472,9 +472,7 @@ def emissionFactorForecast():
         return
 
     master_df = pd.concat(combined_data, axis=0).reset_index(drop=True)
-    output_dir = "Data/GeneracionLiquidada/MovingAverage"
-    os.makedirs(output_dir, exist_ok=True)
-    master_file_path = f"{output_dir}/MovingAverageCompleteAdjusted.csv"
+    master_file_path = f"Data/MovingAverageCompleteAdjusted.csv"
     master_df.to_csv(master_file_path, index=False)
 
     data_raw = pd.read_csv(master_file_path)
