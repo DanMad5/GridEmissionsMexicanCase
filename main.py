@@ -3,6 +3,7 @@ import os.path
 import Adjustment
 import Emissions
 import Figures
+import StateEmissionsMap
 
 def meanEF(EF, name):
     EF = round(EF.mean(axis=0),4)
