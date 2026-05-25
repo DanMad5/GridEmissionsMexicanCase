@@ -70,6 +70,6 @@ Figures.capacityFactor()
 #Fig 8 
 Figures.capacityFactorDistribution()
 #Fig 9 map
-
+StateEmissionsMap.generateEmissionsMap()
 #Fig 10 XGBoost
 Figures.emissionFactorForecast()
