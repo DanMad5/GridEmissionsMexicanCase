@@ -1,4 +1,4 @@
-﻿#,Nombre Central,Región,Sector,Estado,Municipio,Tecnología,Longitud,Latitud,Capacidad_MW,Generacion_GWh,Empresa,Fecha,FP,Tecnología 2
+﻿#,Nombre Central,Región,Sector,Estado,Municipio,Tecnología,Longitud,Latitud,Capacidad_MW,Generacion_GWh,Empresa,Fecha,FP,Technology
 1,Central Termoeléctrica Presidente Plutarco Elías Calles,Central,Público,Guerrero,La Unión de Isidoro de Montes de Oca,Carboeléctrica,-102.1174,17.9816,2778.36,15817,CFE,1993,27.31587,CE
 1,Energía del Valle de México Dos,Central,Privado,Estado de México,Axapusco,Ciclo Combinado,-98.6754,19.8364,615,,,,59.61294,CC
 2,Central Termoeléctrica Francisco Pérez Ríos,Central,Público,Hidalgo,Tula de Allende,Termoeléctrica convencional,-99.2715,20.0548,1605.6,7796.58,CFE,1975,20.26505,TC

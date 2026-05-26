@@ -33,8 +33,8 @@ def generateEmissionsMap():
     FE_x = 0.3427
     FE = FE_adj / FE_x
 
-    capacity_edo = capacidades.groupby(['Estado', 'Tecnología 2'])['Capacidad_MW'].sum().reset_index()
-    cap_tot = capacidades.groupby(['Tecnología 2'])['Capacidad_MW'].sum()
+    capacity_edo = capacidades.groupby(['Estado', 'Technology'])['Capacidad_MW'].sum().reset_index()
+    cap_tot = capacidades.groupby(['Technology'])['Capacidad_MW'].sum()
     edos = capacity_edo['Estado'].unique()
 
     fosiles = ['BIO', 'CE', 'CC', 'CI', 'TC', 'TG']
@@ -43,8 +43,8 @@ def generateEmissionsMap():
     resultados = [] 
     for edo in edos:
         df_edo = capacity_edo[capacity_edo['Estado'] == edo] 
-        for tecnologia in df_edo['Tecnología 2'].unique():
-            df_edo_tech = df_edo[df_edo['Tecnología 2'] == tecnologia]['Capacidad_MW'].sum() 
+        for tecnologia in df_edo['Technology'].unique():
+            df_edo_tech = df_edo[df_edo['Technology'] == tecnologia]['Capacidad_MW'].sum() 
             cap_total_tech = cap_tot.loc[tecnologia] 
             fraccion = df_edo_tech / cap_total_tech 
             
@@ -58,7 +58,7 @@ def generateEmissionsMap():
             
             resultados.append({ 
                 'Estado': edo,
-                'Tecnología': tecnologia,
+                'Technology': tecnologia,
                 'Capacidad(MW) Estatal': df_edo_tech,
                 'Proporción Capacidad': fraccion,
                 'Energía (MWh) estimada': energia,
@@ -67,7 +67,7 @@ def generateEmissionsMap():
             })
             
     df_resultados = pd.DataFrame(resultados)
-    df_resultados['Limpia'] = ~df_resultados['Tecnología'].isin(fosiles) 
+    df_resultados['Limpia'] = ~df_resultados['Technology'].isin(fosiles) 
     
     df_resultados['Emisiones_Calculadas'] = df_resultados.apply( 
         lambda row: row['tCO2e'] if not row['Limpia'] 
@@ -114,7 +114,7 @@ def generateEmissionsMap():
         tamaño = tamaño_min + (total_emi / max_emi) * (tamaño_max - tamaño_min) if total_emi > 0 and max_emi > 0 else tamaño_min
         
         sizes = edo['tCO2e'].abs()
-        labels = edo['Tecnología']
+        labels = edo['Technology']
         colores_edo = [paleta_fosil[tech] for tech in labels]
 
         fig, ax = plt.subplots(figsize=(1, 1))
@@ -130,14 +130,15 @@ def generateEmissionsMap():
         b64_img = base64.b64encode(buff.read()).decode('utf-8')
         icon_url = f"data:image/png;base64,{b64_img}"
         
-        tabla_html = edo[['Tecnología', 'tCO2e']].to_html(classes='table table-striped', index=False, float_format="%.2f")
-        popup_html = f"<h4>{estado}</h4><p>Total: {total_emi:,.2f} tCO2e</p>{tabla_html}"
+        df_popup = edo[['Technology', 'tCO2e']].rename(columns={'tCO2e': 'tCO<sub>2</sub>e'})
+        tabla_html = df_popup.to_html(classes='table table-striped', index=False, float_format='{:,.2f}'.format, escape=False)
+        popup_html = f"<h4>{estado}</h4><p>Total: {total_emi:,.2f} tCO<sub>2</sub>e</p>{tabla_html}"
         
         icon = folium.CustomIcon(icon_url, icon_size=(int(tamaño), int(tamaño)))
         folium.Marker(
             location=[lat, lon],
             icon=icon,
-            tooltip=f"{estado}: {total_emi:,.0f} tCO2e",
+            tooltip=f"{estado}: {total_emi:,.0f} tCO<sub>2</sub>e",
             popup=folium.Popup(popup_html, max_width=300)
         ).add_to(m)
 
@@ -148,6 +149,8 @@ def generateEmissionsMap():
      '''
     for tech, color in paleta_fosil.items():
         leyenda_html += f'<i style="background:{color};width:10px;height:10px;display:inline-block;"></i> {tech}<br>'
+    
+    leyenda_html += "<br><b>Units:</b> tCO<sub>2</sub>e"
     leyenda_html += "</div>"
     m.get_root().html.add_child(folium.Element(leyenda_html))
 
@@ -156,19 +159,19 @@ def generateEmissionsMap():
     print(f"Mapa guardado exitosamente en {output_file}")
     webbrowser.open(output_file)
 
-    df_totales = df_resultados.groupby('Tecnología').sum(numeric_only=True).reset_index()
-    df_totales['Limpia'] = ~df_totales['Tecnología'].isin(fosiles)
+    df_totales = df_resultados.groupby('Technology').sum(numeric_only=True).reset_index()
+    df_totales['Limpia'] = ~df_totales['Technology'].isin(fosiles)
     df_totales['emisiones_x'] = np.where(~df_totales['Limpia'], df_totales['Energía (MWh) estimada'] * FE_x, 0)
     df_totales['emisiones_y'] = np.where(~df_totales['Limpia'], df_totales['Energía (MWh) estimada'] * FE_adj, 0)
     df_totales['emisiones_z'] = np.where(~df_totales["Limpia"], df_totales['tCO2e'], 0)
     
     df_totales = df_totales[~df_totales['Limpia']].copy()
     
-    fig, ax = plt.subplots(figsize=(8, 5))
-    df_totales.set_index("Tecnología")[["emisiones_x", "emisiones_y", "emisiones_z"]].plot(kind="bar", ax=ax)
+"""     fig, ax = plt.subplots(figsize=(8, 5))
+    df_totales.set_index("Technology")[["emisiones_x", "emisiones_y", "emisiones_z"]].plot(kind="bar", ax=ax)
     
-    ax.set_ylabel("Emisiones (tCO2e)")
-    ax.set_xlabel("Tecnología")
+    ax.set_ylabel("Emissions (tCO2e)")
+    ax.set_xlabel("Technology")
     ax.ticklabel_format(style='plain', axis='y')
     ax.yaxis.set_major_formatter(mticker.StrMethodFormatter('{x:,.0f}'))
     
@@ -180,4 +183,4 @@ def generateEmissionsMap():
         spine.set_linewidth(1.2)
         
     plt.tight_layout()
-    plt.show()
+    plt.show() """

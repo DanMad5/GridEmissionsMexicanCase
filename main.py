@@ -58,7 +58,7 @@ allEFeYear = pd.concat([allEFeYear,meanEF(allYearsEFeMAAdj,"EFe-MA-Adj")], axis=
 
 print("EFe are: \n",allEFeYear, "\n")
 
-#Fig 2
+""" #Fig 2
 Figures.emissionFactorYears()
 #Fig 3
 Figures.heatmap()
@@ -69,8 +69,8 @@ Figures.energyTech()
 #Fig 7 
 Figures.capacityFactor()
 #Fig 8 
-Figures.capacityFactorDistribution()
+Figures.capacityFactorDistribution() """
 #Fig 9 map
 StateEmissionsMap.generateEmissionsMap()
-#Fig 10 XGBoost
-Figures.emissionFactorForecast()
+""" #Fig 10 XGBoost
+Figures.emissionFactorForecast() """

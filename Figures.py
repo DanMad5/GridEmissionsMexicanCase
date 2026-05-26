@@ -12,7 +12,7 @@ import matplotlib as mpl
 base_font = 14
 mpl.rcParams.update({
     "font.family": "serif", "font.serif": ["Times New Roman"],
-    "font.size": base_font, "font.weight": "bold",
+    "font.size": base_font,
     "axes.titlesize": base_font + 4, "axes.labelsize": base_font + 1,
     "xtick.labelsize": base_font - 1, "ytick.labelsize": base_font - 1,
     "axes.linewidth": 1.2, "grid.linewidth": 0.3
@@ -30,7 +30,7 @@ def emissionFactorYears(year1=2018, year2=2024):
     base_font = 16
     mpl.rcParams.update({
         "font.family": "serif", "font.serif": ["Times New Roman"],
-        "font.size": base_font, "font.weight": "bold",
+        "font.size": base_font,
         "axes.titlesize": base_font + 2, "axes.labelsize": base_font + 1,
         "xtick.labelsize": base_font - 1, "ytick.labelsize": base_font - 1,
         "axes.linewidth": 1.2, "legend.fontsize": base_font - 1
@@ -54,7 +54,7 @@ def emissionFactorYears(year1=2018, year2=2024):
     for y in target_years:
         ax1.plot(data_to_plot[y].values, label=str(y), color=colors[y], alpha=0.7)
     
-    ax1.set_ylabel('Emission Factor [tCO$_2$e/MWh]')
+    ax1.set_ylabel('Emission Factor [tCO$_2$e/MWh]', fontweight='normal')
     ax1.set_title('(a) Hourly Emission Factors')
     ax1.legend(loc='upper right', frameon=True)
     ax1.grid(True, alpha=0.3)
