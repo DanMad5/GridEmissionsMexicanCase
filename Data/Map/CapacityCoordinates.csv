@@ -1,0 +1,124 @@
+﻿#,Nombre Central,Región,Sector,Estado,Municipio,Tecnología,Longitud,Latitud,Capacidad_MW,Generacion_GWh,Empresa,Fecha,FP,Technology
+1,Central Termoeléctrica Presidente Plutarco Elías Calles,Central,Público,Guerrero,La Unión de Isidoro de Montes de Oca,Carboeléctrica,-102.1174,17.9816,2778.36,15817,CFE,1993,27.31587,CE
+1,Energía del Valle de México Dos,Central,Privado,Estado de México,Axapusco,Ciclo Combinado,-98.6754,19.8364,615,,,,59.61294,CC
+2,Central Termoeléctrica Francisco Pérez Ríos,Central,Público,Hidalgo,Tula de Allende,Termoeléctrica convencional,-99.2715,20.0548,1605.6,7796.58,CFE,1975,20.26505,TC
+2,Refinería Miguel Hidalgo,Central,Privado,Hidalgo,Tula de Allende,Termoeléctrica convencional,-99.2729,20.0522,670.4,160.4,PEMEX,2007,20.26505,TC
+3,Central Termoeléctrica Valle de México,Central,Público,Estado de México,Acolman,Termoeléctrica convencional,-98.9769,19.6167,1288,9815.52,CFE,1963,20.26505,TC
+3,EVM Energía del Valle de México,Central,Privado,Estado de México,Axapusco,Turbogás,-98.6664,19.7463,850,7148,EVM Enegria del Valle de Mexico S.A.P.I. de C.V.,-,20.26505,TG
+4,Central Lerma,Central,Privado,Michoacán de Ocampo,Contepec,Hidroeléctrica,-100.2463,19.9842,48.6,255,Generadora Fénix S. A. P. I. de C. V. Central Lerma,1930,31.78304,HE
+4,Central El Infiernillo,Central,Público,Michoacán de Ocampo,Arteaga,Hidroeléctrica,-101.8911,18.2683,1200,3100,CFE,1964,31.78304,HE
+5,Central Termoeléctrica Ciclo Combinado Tula (Paquete II),Central,Público,Hidalgo,Tula de Allende,Ciclo Combinado,-99.2767,20.0613,566,3487,CFE,1981,59.61294,CC
+5,Mexicana de Hidroelectricidad Mexhidro,Central,Privado,Guerrero,Cutzamala de Pinzón,Hidroeléctrica,-100.6686,18.7022,30,,,,31.78304,HE
+6,Eólica del Sur,Oriental,Privado,Oaxaca,Juchitán de Zaragoza,Eólica,-95.0352,16.4752,180,1310,FEMSA Mitsubishi MMIF,2019,32.75172,EO
+6,Eólica del Sur,Oriental,Privado,Oaxaca,Juchitán de Zaragoza,Eólica,-95.0352,16.4752,216,1310,FEMSA Mitsubishi MMIF,2019,32.75172,EO
+6,Central La Villita,Central,Público,Michoacán de Ocampo,Ciudad Lázaro Cárdenas,Hidroeléctrica,-102.1822,18.0461,320,1200,CFE,1973,31.78304,HE
+7,Central Manuel Moreno Torres (C. H. Chicoasén),Oriental,Público,Chiapas,Chicoasén,Hidroeléctrica,-93.0975,16.9435,2400,5134,CFE,1980,31.78304,HE
+7,Complejo Procesadorde Gas Nuevo Pemex,Oriental,Privado,Tabasco,Centro,Turbogás,-93.116,17.8699,367,2628,Pemex-Gas y Petroquímica Básica,2009,20.26505,TG
+8,Abent 3T,Oriental,Privado,Tabasco,Centro,Ciclo Combinado,-93.1138,17.8588,695.9,5852.79,Acc4t S.A.P.. de C.V.,-,59.61294,CC
+8,Central Termoeléctrica Pdte. Adolfo López Mateos,Oriental,Público,Veracruz de Ignacio de la Llave,Tuxpan,Termoeléctrica convencional,-97.3326,21.0178,2100,4872.9,CFE,1991,20.26505,TC
+9,Eurus,Oriental,Privado,Oaxaca,Juchitán de Zaragoza,Eólica,-94.8295,16.5474,240,883.73,Eurus S.A. de C.V filial de Acciona Energia (España) cliente CEMEX,2009,32.75172,EO
+9,Central Nucleoeléctrica Laguna Verde,Oriental,Público,Veracruz de Ignacio de la Llave,Alto Lucero de Gutiérrez Barrios,Nucleoeléctrica,-96.4056,19.7208,1610,11936.84,CFE,1990,71.05012,NU
+10,Fuerza y Energía Bii Hioxo,Oriental,Privado,Oaxaca,Juchitán de Zaragoza,Eólica,-94.9569,16.4432,234,700.68,Fuerza y Energía Biío Hioxo filial de Gas Natural Fenosa Renovables (España),2014,32.75172,EO
+10,Central Malpaso,Oriental,Público,Chiapas,Tecpatán,Hidroeléctrica,-93.5957,17.1807,1080,4374,CFE,1969,31.78304,HE
+11,Central Tuxpan III y IV,Oriental,Público,Veracruz de Ignacio de la Llave,Tuxpan,Ciclo Combinado,-97.2533,20.8379,1090,7766.83,Fuerza y Energia de Tuxpan S.A. de C.V. (Union Fenosa),2003,59.61294,CC
+11,Parque Solar La Magdalena II,Oriental,Privado,Tlaxcala,Tlaxco y Hueyotlipan,FV-Solar,-98.353,19.5523,263,609.06,Más Energía S. de R.L. de C.V.,2019,28.46676,FV
+12,Ciclo Combinado Tierra Mojada,Occidental,Privado,Jalisco,Zapotlanejo,Ciclo Combinado,-103.0741,20.5537,874.5,5828,Ciclo Combinado Tierra Mojada S. de R.L. de C.V.,-,59.61294,CC
+12,Central Belisario Domínguez (C. H. Angostura),Oriental,Público,Chiapas,Venustiano Carranza,Hidroeléctrica,-92.7766,16.4035,900,3104,CFE,1975,31.78304,HE
+13,Central Ciclo Combinado Centro,Oriental,Público,Morelos,Yecapixtla,Ciclo Combinado,-98.8777,18.8017,656,5286.88,CFE,-,59.61294,CC
+13,Parque Fotovoltaico Potosí,Occidental,Privado,San Luis Potosí,Villa de Ramos,FV-Solar,-102.069,23.061,329,809.69,FRV Potosí Solar S. de R.L. de C.V.,2019,28.46676,FV
+14,Pachamama,Occidental,Privado,Aguascalientes,El Llano,FV-Solar,-102.107,21.8297,300,981.4,ENR AGS S.A. DE C.V.,-,28.46676,FV
+14,Central Carlos Ramírez Ulloa (C. H. Caracol),Oriental,Público,Guerrero,Apaxtla,Hidroeléctrica,-99.9502,17.9678,600,747,CFE,1986,31.78304,HE
+15,Central Tuxpan II,Oriental,Público,Veracruz de Ignacio de la Llave,Tuxpan,Ciclo Combinado,-97.2558,20.844,535,3707.45,Electricidad Aguila de Tuxpan,2001,59.61294,CC
+15,Potreros Solar,Occidental,Privado,Jalisco,Lagos de Moreno,FV-Solar,-102.0266,21.2438,300,728.72,FRV POTRERO SOLAR S. DE R.L. DE C.V.,-,28.46676,FV
+16,Central Tuxpan V,Oriental,Público,Veracruz de Ignacio de la Llave,Tuxpan,Ciclo Combinado,-97.3739,20.9524,548,3787.32,Electricidad Sol de Tuxpan S. de R.L. de C.V.,2006,59.61294,CC
+16,Parque Solar Don José,Occidental,Privado,Guanajuato,San Luis de la Paz,FV-Solar,-100.5809,21.3383,250,651,Más Energía S. de R.L. de C.V.,2018,28.46676,FV
+17,Energía San Luis de la Paz,Occidental,Privado,Guanajuato,San Luis de la Paz,Ciclo Combinado,-99.2109,19.4308,220,1773,Energía San Luis de la Paz S. A. de C. V.,2015,59.61294,CC
+17,Central Ángel Albino Corzo “Peñitas”,Oriental,Público,Chiapas,Ostuacán,Hidroeléctrica,-93.462,17.4459,420,1420,CFE,1987,31.78304,HE
+18,Central Ciclo Combinado San Lorenzo Potencia,Oriental,Público,Puebla,Cuautlancingo,Ciclo Combinado,-98.2426,19.1205,382.12,2714,CFE,2009,59.61294,CC
+18,México Generadora de Energía La Caridad,Noroeste,Privado,Sonora,Nacozari de García,Ciclo Combinado,-109.6218,30.5225,516,,,,59.61294,CC
+19,Navojoa Solar,Noroeste,Privado,Sonora,Navojoa,FV-Solar,-109.3249,27.1143,200,559.97,KenerGreen SAPI de C.V,-,28.46676,FV
+19,Central Temascal y Ampliación Temascal,Oriental,Público,Oaxaca San Miguel,Soyaltepec,Hidroeléctrica,-96.2074,18.4067,1126,531,CFE,1959,31.78304,HE
+20,Central Termoeléctrica Manzanillo (C. C. C. Gral. Manuel Álvarez Moreno),Occidental,Público,Colima,Manzanillo,Ciclo Combinado,-104.319,19.0259,600,5518,CFE,1982,59.61294,CC
+20,AT Solar V,Noroeste,Privado,Sonora,Pitiquito Comisaría de Puerto Libertad,FV-Solar,-112.6561,29.9719,317,-,Acciona / Tuto Energy,2019,28.46676,FV
+21,Tuto Energy Dos,Noroeste,Privado,Sonora,Pitiquito Comisaría de Puerto Libertad,FV-Solar,-112.6423,29.9799,317.5,,,,28.46676,FV
+21,Central Termoeléctrica Manzanillo (C. T. C. Gral. Manuel Álvarez Moreno),Occidental,Público,Colima,Manzanillo,Termoeléctrica convencional,-104.3191,19.0257,700,3021.09,CFE,1989,20.26505,TC
+22,Central Termoeléctrica de Ciclo Combinado El Sauz,Occidental,Público,Querétaro,Pedro Escobedo,Ciclo Combinado,-100.1172,20.4578,591,4579,CFE,1981,59.61294,CC
+22,Don Diego Solar,Noroeste,Privado,Sonora,Benjamin Hill,FV-Solar,-111.0896,30.1576,125,375.68,Don Diego Solar S.A..I. de C.V filial de IEnova,-,28.46676,FV
+23,Parque Villanueva Solar Uno,Norte,Privado,Coahuila de Zaragoza,Viesca,FV-Solar,-103.0504,25.5608,427,1070.3,Villanueva Solar S. A. de C. V.,2018,28.46676,FV
+23,Central Aguamilpa Solidaridad,Occidental,Público,Nayarit,El Nayar,Hidroeléctrica,-104.8034,21.8429,960,2131,CFE,1994,31.78304,HE
+24,Villanueva Solar Tres,Norte,Privado,Coahuila de Zaragoza,Viesca,FV-Solar,-103.0455,25.5645,327,,,,28.46676,FV
+24,Central Ing. Fernando Hiriart Balderrama (C. H. Zimapan),Occidental,Público,Hidalgo,Zimapán,Hidroeléctrica,-99.5007,20.6822,292,1300,CFE,1996,31.78304,HE
+25,Border Solar,Norte,Privado,Chihuahua,Juárez,FV-Solar,-106.417,31.7222,204,-,CENTRAL FOTOVOLTAICA BORDER SOLAR NORTE S.A DE C.V filial de IENOVA,-,28.46676,FV
+25,Central La Yesca,Occidental,Público,Jalisco,Hostotipaquillo,Hidroeléctrica,-104.0861,21.1919,750,1210,CFE,2014,31.78304,HE
+26,Central General Escobedo,Noreste,Privado,Nuevo León,El Carmen,Ciclo Combinado,-100.3589,25.8733,946,5068.09,Iberdrola Energia de Escobedo S. A de C.V.,2018,59.61294,CC
+26,Central Leonardo Rodríguez Alcaine,Occidental,Público,Nayarit,La Yesca,Hidroeléctrica,-104.4528,21.4291,750,1200,CFE,2007,31.78304,HE
+27,Techgen,Noreste,Privado,Nuevo León,Pesquería,Ciclo Combinado,-99.971,25.7261,1025,8211.56,Techgen S.A. de C.V.,2016,59.61294,CC
+27,Central Termoeléctrica Villa de Reyes,Occidental,Público,San Luis Potosí,Villa de Reyes,Termoeléctrica convencional,-100.9325,21.832,700,1226.9,CFE,1986,20.26505,TC
+28,Central Salamanca,Occidental,Público,Guanajuato,Salamanca,Termoeléctrica convencional,-100.7873,20.7741,550,1571.07,CFE,1977,20.26505,TC
+28,Los Ramones,Noreste,Privado,Nuevo León,Los Ramones,Turbogás,-99.4372,25.6829,768,4762,Compañía de Electricidad Los Ramones S.A.P.I. de C.V.,-,20.26505,TG
+29,Energía Azteca VIII El Sáuz - Bajío,Occidental,Público,Guanajuato,San Luis de la Paz,Ciclo Combinado,-100.6076,21.2449,591,4579,CFE,1981,59.61294,CC
+29,Energía Buenavista,Noreste,Privado,Texas EE.UU.,Mission,Ciclo Combinado,-98.3952,26.2263,540,,,,59.61294,CC
+30,El Clérigo,Noreste,Privado,San Luis Potosí,Tamazunchale,Ciclo Combinado,-98.753,21.3143,570,-,-,-,59.61294,CC
+30,Central Cogeneración Salamanca,Occidental,Público,Guanajuato,Salamanca,Turbogás,-101.1646,20.5785,700,5826,Cogenenracion de Salamanca S.A. de C.V.,-,20.26505,TG
+31,Topolobampo II,Noroeste,Público,Sinaloa,Ahome,Ciclo Combinado,-109.0134,25.6287,1004,7049,Iberdrola Energia Noroeste S.A. de C.V.,2019,59.61294,CC
+31,Parque Eólico Reynosa III,Noreste,Privado,Tamaulipas,Reynosa,Eólica,-98.4968,25.9754,140,-,Compañía Eólica de Reynosa S. A. de C. V,-,32.75172,EO
+32,Central Empalme II,Noroeste,Público,Sonora,Empalme,Ciclo Combinado,-110.7801,27.9259,807,6882,Generación III,2019,59.61294,CC
+32,Cogeneración de Altamira (Etapa I 391 MW),Noreste,Privado,Tamaulipas,Altamira,Ciclo Combinado,-97.9554,22.7206,750,6242,Cogeneración de Altamira S.A. de C.V.,2019,59.61294,CC
+33,Central Empalme I,Noroeste,Público,Sonora,Empalme,Ciclo Combinado,-110.7823,27.9259,783,4359,Generación IV,2019,59.61294,CC
+33,Eólica Mesa La Paz,Noreste,Privado,Tamaulipas,Llera de Canales,Eólica,-98.8196,23.357,306,1170,EÓLICA MESA LA PAZ S. DE R.L. DE C.V. (Compañía Eolica La Mesa),1998,32.75172,EO
+34,Topolobampo III,Noroeste,Público,Sinaloa,Ahome,Ciclo Combinado,-108.9946,25.9725,779,,,,59.61294,CC
+34,Central Dulces Nombres II,Noreste,Privado,Nuevo León,Pesquería,Ciclo Combinado,-100.0941,25.719,498,-,Iberdrola Energia Monterrey S. A. de C.V.,-,59.61294,CC
+35,Termoeléctrica Peñoles,Noreste,Privado,San Luis Potosí,Tamuín,LechoFluidizado,-98.8416,22.0776,230,1185,Termoelectrica Peñoles S. de RL. de C.V.,2002,20.26505,TC
+35,Central Puerto Libertad,Noroeste,Público,Sonora,Pitiquito,Termoeléctrica convencional,-112.6942,29.9088,632,2787.35,CFE,1985,20.26505,TC
+36,Tractebel Energía de Monterrey,Noreste,Privado,Nuevo León,García,Ciclo Combinado,-100.5414,25.7665,284,-,Tractebel Energia de Monterrey S. de R.L de C.V.,2000,59.61294,CC
+36,Central Termoeléctrica José Aceves Pozos,Noroeste,Público,Sinaloa,Mazatlán,Termoeléctrica convencional,-106.3532,23.193,616,2777.55,CFE,1976,20.26505,TC
+37,Central Agua Prieta II,Noroeste,Público,Sonora,Agua Prieta,Ciclo Combinado,-109.5911,31.263,409,3355.31,CFE,2013,59.61294,CC
+37,Termoeléctrica del Golfo,Noreste,Privado,San Luis Potosí,Tamuín,LechoFluidizado,-98.8482,22.0729,290,1974.5,Termoelectrica del Golfo S. de R. L. de C.V.,1999,20.26505,TC
+38,Parque Eólico Dolores,Noreste,Privado,Nuevo León,China,Eólica,-98.6057,25.5502,267,1085,EPM Eólica Dolores S.A. de C.V.,-,32.75172,EO
+38,Central Luis Donaldo Colosio Murrieta “Huites”,Noroeste,Público,Sinaloa,Choix,Hidroeléctrica,-108.371,26.8519,422,758,CFE,1995,31.78304,HE
+39,Norte Juárez,Norte,Público,Chihuahua,Ciudad Juárez,Ciclo Combinado,-106.3489,31.6406,907,,,,59.61294,CC
+39,Altos Hornos de México,Noreste,Privado,Coahuila de Zaragoza,Monclova,Termoeléctrica convencional,-101.4218,26.8856,260,-,Altos Hornos de México (AHMSA),-,20.26505,TC
+40,Parque Eólico El Mezquite,Noreste,Privado,Nuevo León,Mina,Eólica,-100.541,26.2214,250,,,,32.75172,EO
+40,Central Termoeléctrica Samalayuca,Norte,Público,Chihuahua,Ciudad Juárez,Termoeléctrica convencional,-106.4864,31.3304,343,902,CFE,1984,20.26505,TC
+41,Central Ciclo Combinado Chihuahua (El Encino),Norte,Público,Chihuahua,Chihuahua,Ciclo Combinado,-105.9214,28.447,619.4,4666,CFE,2001,59.61294,CC
+41,Central Mexicali,Baja California,Privado,Baja California,Mexicali,Ciclo Combinado,-115.3296,32.5512,597,4850,Energia Azteca X S.A. de C.V.,2003,59.61294,CC
+42,Iberdrola Energía La Laguna,Norte,Público,Durango,Gómez Palacio,Ciclo Combinado,-103.4676,25.6021,555,4441,Iberdrola Energía,2011,59.61294,CC
+43,Fuerza y Energía de Norte Durango,Norte,Público,Durango,Durango,Ciclo Combinado,-104.4791,24.2293,465,3478.6,Fuerza y Energia de Norte Durango S.A. de C.V.,2010,59.61294,CC
+43,Rumorosa Solar,Baja California,Privado,Baja California,Tecate,FV-Solar,-115.9145,32.5713,41,123,Energía Sierra Juárez Holding S. de R.l. de C.v. filial de IENOVA,2019,28.46676,FV
+44,Norte II,Norte,Público,Chihuahua,Chihuahua,Ciclo Combinado,-105.9188,28.4411,533.3,4508,Korea Electric Power Samsung C&T y Technit S.A de C.V.,2013,59.61294,CC
+44,Fuerza Eólica San Matías,Baja California,Privado,Baja California,Mexicali,Eólica,-115.4026,31.2973,30.4,98,Fuerza Eólica de San Matías filial de Cementos Mexicanos (Cemex) y Pattern Development. En 2019 Sinia Capital compró el proyecto.,-,32.75172,EO
+45,Central Termoeléctrica Guadalupe Victoria (C. T. C. Lerdo),Norte,Público,Durango,Lerdo,Termoeléctrica convencional,-103.5679,25.4968,320,2803,CFE,1991,20.26505,TC
+45,Central Térmica Pichilingue,Baja California Sur,Privado,Baja California Sur,La Paz,Turbogás,-110.3092,24.2236,135,,,,20.26505,TG
+46,La Pimienta,Peninsular,Privado,Campeche,Carmen,FV-Solar,-91.7221,18.0221,300,-,Pimienta Solar SRL de CV,2018,28.46676,FV
+46,Central Termoeléctrica Gral. Francisco Villa,Norte,Público,Chihuahua,Delicias,Termoeléctrica convencional,-105.441,28.168,300,2628,CFE,19880,20.26505,TC
+47,Energía Chihuahua Transalta Chihuahua,Norte,Público,Chihuahua,Ciudad Juárez,Ciclo Combinado,-105.9217,28.4471,350.4,50.69,Energia Chihuahua S.A. de C.V,2003,59.61294,CC
+47,Energía Renovable De La Península,Peninsular,Privado,Yucatán,Mérida,Eólica,-89.6576,21.2392,60,-,Central Eólica de la Península S. A. P. I. de C. V que pertenece al 70 % a Grupo Marhnos,-,32.75172,EO
+48,Central Termoeléctrica Carbón II,Noreste,Público,Coahuila de Zaragoza,Nava,Carboeléctrica,-100.6959,28.466,1400,8622.29,CFE,1993,27.31587,CE
+48,Fuerza y Energía Limpia de Tizimín,Peninsular,Privado,Yucatán,Tizimín,Eólica,-87.9673,21.2609,86,321.1,Fuerza y Energía Limpia de Tizimín S.A. de C. V filial de Avant Energy S. de R.L. de C.V.,2016,32.75172,EO
+49,Central Termoeléctrica José López Portillo (C. Car. Río Escondido),Noreste,Público,Coahuila de Zaragoza,Nava,Carboeléctrica,-100.6897,28.4847,1320,8953.23,CFE,1993,27.31587,CE
+49,Eólica del Golfo 1,Peninsular,Privado,Yucatán,Mérida,Eólica,-88.7828,21.3959,92,315.67,Energía Renovable de la Península S.A.P.I. de C.V. filial de Vive Energía,-,32.75172,EO
+50,Iberdrola Energía Tamazunchale,Noreste,Público,San Luis Potosí,Tamazunchale,Ciclo Combinado,-98.3735,21.5168,1161,9153.32,Iberdrola Energia Tamazunchale S.A. de C.V.,2007,59.61294,CC
+51,Altamira V,Noreste,Público,Tamaulipas,Altamira,Ciclo Combinado,-97.9032,22.501,1143,10012.6,Iberdrola Energia del Golfo S.A. de C..V.,2007,59.61294,CC
+52,Altamira III y IV,Noreste,Público,Tamaulipas,Altamira,Ciclo Combinado,-97.9018,22.4934,1153.7,8202.49,Iberdrola Energia Altamira S.A. de C.V.,2003,59.61294,CC
+53,Central Ciclo Combinado Huinalá I,Noreste,Público,Nuevo León,Pesquería,Ciclo Combinado,-100.1014,25.7192,377,6978,CFE,1981,59.61294,CC
+54,Iberdrola Energía Escobedo,Noreste,Público,Nuevo León,El Carmen,Ciclo Combinado,-100.3581,25.8712,1026,7506,Iberdrola Energía Escobedo,2019,59.61294,CC
+55,Central Termoeléctrica Emilio Portes Gil (C. C. C. Río Bravo),Noreste,Público,Tamaulipas,Río Bravo,Ciclo Combinado,-98.0621,25.9807,211,-,CFE,1982,59.61294,CC
+56,Central Termoeléctrica Altamira,Noreste,Público,Tamaulipas,Altamira,Termoeléctrica convencional,-97.9297,22.3998,500,2155.19,CFE,1976,20.26505,TC
+58,Central Río Bravo II,Noreste,Público,Tamaulipas,Valle Hermoso,Ciclo Combinado,-97.7802,25.8047,568,3700,Central Anahuac S.A de C. V. (Antes Central Rio Bravo S.A. de C.V.),2002,59.61294,CC
+59,Altamira II,Noreste,Público,Tamaulipas,Altamira,Ciclo Combinado,-97.904,22.5012,565,3631,Electricidad Aguila de Altamira S. de R.L. de C.V.,2002,59.61294,CC
+60,Central Río Bravo III,Noreste,Público,Tamaulipas,Valle Hermoso,Ciclo Combinado,-97.7817,25.8009,571,4115,Central Lomas de Real S.A de C.V.,2004,59.61294,CC
+61,Iberdrola Energía Monterrey,Noreste,Público,Nuevo León,Pesquería,Ciclo Combinado,-100.0641,25.7287,1140,15219.26,Iberdrola Energia Monterrey S.A de C.V.,2002,59.61294,CC
+62,Central Termoeléctrica Presidente Juárez (C. C. C. Presidente Juárez),Baja California,Público,Baja California,Playas de Rosarito,Ciclo Combinado,-117.0672,32.3687,320,5406.64,CFE,1964,59.61294,CC
+63,Mexicali,Baja California,Público,Baja California,Mexicali,Ciclo Combinado,-115.6586,32.6073,597,4850,Energia Azteca X S.A. de C.V.,2003,59.61294,CC
+64,Central Tijuana,Baja California,Público,Baja California,Playas de Rosarito,Turbogás,-117.0619,32.3756,345,2932,CFE,1982,20.26505,TG
+65,Central Cerro Prieto,Baja California,Público,Baja California,Mexicali,Geotérmica,-115.2402,32.403,100,4009.91,CFE,2000,47.69894,GEO
+66,Central de Combustión Interna Baja California Sur,Baja California Sur,Público,Baja California Sur,La Paz,Combustión Interna,-110.2564,24.2008,46.8,2008,CFE-Generación I,2005,26.26505,CI
+67,Central Termoeléctrica Punta Prieta II,Baja California Sur,Público,Baja California Sur,La Paz,Termoeléctrica convencional,-110.3082,24.2236,580,2638,CFE,1977,20.26505,TC
+68,Central Combustión Interna Agustín Olachea Avilés,Baja California Sur,Público,Baja California Sur,Comondú,Combustión Interna,-112.09245,24.81481,104.12,621,CFE,1991,26.26505,CI
+69,Central Turbogás Los Cabos,Baja California Sur,Público,Baja California Sur,Los Cabos,Turbogás,-110.0199,22.9732,217.66,441,CFE,1976,20.26505,TG
+70,Compañía de Generación Valladolid,Peninsular,Público,Yucatán,Valladolid,Ciclo Combinado,-88.2652,20.6923,295,1602,CFE,1992,59.61294,CC
+71,AES Mérida III,Peninsular,Público,Yucatán,Mérida,Ciclo Combinado,-89.6982,20.9339,531,3400,AES Mérida III S. de R.L. de C.V. en P.,2000,59.61294,CC
+72,Central Termoeléctrica Felipe Carrillo Puerto (C. C. C. Valladolid),Peninsular,Público,Campeche,Palizada,Ciclo Combinado,-88.2654,20.6978,295,1602,CFE,1992,59.61294,CC
+73,Energía de Campeche (Transalta Campeche S. A. de C. V.),Peninsular,Público,Campeche,Palizada,Ciclo Combinado,-90.5419,19.8453,275,2102,Energia Campeche S.A de C.V.,2003,59.61294,CC
+74,Central Termoeléctrica Mérida II,Peninsular,Público,Yucatán,Mérida,Térmica Convencional,-89.6871,20.9265,168,301.3,CFE,1981,20.26505,TC
+75,Bioenergía,Noreste,Público,Nuevo León,Monterrey,BIO,25.6866,-100.3161,17,,,,,BIO
