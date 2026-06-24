@@ -18,8 +18,8 @@ def generateEmissionsMap():
     })
 
     capacidades = pd.read_csv('Data/Map/CapacityCoordinates.csv', encoding='utf8')
-    df_gen = pd.read_csv('Data/CompleteGeneration/complete-24.csv', encoding='utf8')
-    emisiones = pd.read_csv('Data/Emissions/emissions-24.csv', encoding='utf8')
+    df_gen = pd.read_csv('Data/CompleteGeneration/complete-23.csv', encoding='utf8')
+    emisiones = pd.read_csv('Data/Emissions/emissions-23.csv', encoding='utf8')
 
     gen = df_gen.iloc[:, 1:12] 
     tot_tecnologia = gen.sum() 

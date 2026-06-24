@@ -62,15 +62,15 @@ print("EFe are: \n",allEFeYear, "\n")
 Figures.emissionFactorYears()
 #Fig 3
 Figures.heatmap()
-#Fig 4-5 Combined?
+#Fig 4
 Figures.boxAndViolin()
-#Fig 6
+#Fig 5
 Figures.energyTech()
-#Fig 7 
+#Fig 6 
 Figures.capacityFactor()
-#Fig 8 
+#Fig 7 
 Figures.capacityFactorDistribution()
-#Fig 9 map
+#Fig 8 map
 StateEmissionsMap.generateEmissionsMap()
-#Fig 10 XGBoost
+#Fig 9 XGBoost
 Figures.emissionFactorForecast()

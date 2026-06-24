@@ -281,7 +281,7 @@ def boxAndViolin():
     plt.show()
 
 #Fig 6
-def energyTech(year=2023):
+def energyTech(year=2024):
     base_font = 14
     mpl.rcParams.update({
         "font.family": "serif", "font.serif": ["Times New Roman"],
@@ -341,7 +341,6 @@ def energyTech(year=2023):
         
         ax.text(0, 0.03, f"{total:,.0f}", ha="center", va="center", fontsize=base_font + 4, fontweight="bold", zorder=20)
         ax.text(0, -0.10, "GWh", ha="center", va="center", fontsize=base_font + 1, fontweight="bold", zorder=20)
-        ax.set_title(f"Energy Generation Share - {year}", pad=20)
 
         for w, lab, val in zip(wedges, labels, values):
             pct = 100 * val / total
