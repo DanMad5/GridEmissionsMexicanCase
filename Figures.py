@@ -9,6 +9,18 @@ from xgboost import XGBRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 import matplotlib as mpl
 
+##
+def calculate_entropy(series, base=2):
+    # 1. Get the probability distribution of unique values
+    probs = series.value_counts(normalize=True)
+    
+    # 2. Filter out zero probabilities to avoid log(0) errors
+    probs = probs[probs > 0]
+    
+    # 3. Apply the Shannon entropy formula
+    return -(probs * np.log(probs) / np.log(base)).sum()
+##
+
 base_font = 14
 mpl.rcParams.update({
     "font.family": "serif", "font.serif": ["Times New Roman"],
@@ -382,7 +394,7 @@ def capacityFactor(year1=2018, year2=2023):
 
     name = 'CC'
     figName = 'Combined Cycle'
-
+    fc2[name]
     plt.figure(figsize=(14, 6))
     plt.plot(fc2[name], color='blue', alpha=0.8, linewidth=1, label=f'{year2} - ' + figName)
     plt.plot(fc1[name], color='#4CAF50', alpha=0.8, linewidth=1, label=f'{year1} - ' + figName)
@@ -404,6 +416,7 @@ def capacityFactorDistribution(year1=2018, year2=2023):
     
     name = 'CC'
     figName = 'Combined Cycle'
+    
 
     fc1 = calculateFC(year1, cap_df, tech_names)[name].dropna()
     fc2 = calculateFC(year2, cap_df, tech_names)[name].dropna()
@@ -426,7 +439,13 @@ def capacityFactorDistribution(year1=2018, year2=2023):
 
     """ fc1 = fc1[fc1 >= 0.1]
     fc2 = fc2[fc2 >= 0.1] """
-
+    ##
+    # Calculate for a single column
+    entropy_fc1 = calculate_entropy(fc1)
+    entropy_fc2 = calculate_entropy(fc2)
+    print(f"Entropy: {entropy_fc1:.4f} bits")
+    print(f"Entropy: {entropy_fc2:.4f} bits")
+    ##
     plt.figure(figsize=(12, 6))
     plt.hist(fc1, bins=50, alpha=0.6, label=str(year1), color='#4CAF50', density=True, edgecolor='black')
     plt.hist(fc2, bins=50, alpha=0.6, label=str(year2), color='blue', density=True, edgecolor='black')
