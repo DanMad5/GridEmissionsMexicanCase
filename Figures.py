@@ -8,7 +8,8 @@ from matplotlib.patches import Patch
 from xgboost import XGBRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 import matplotlib as mpl
-
+##
+from numpy import linalg as LA
 ##
 def calculate_entropy(series, base=2):
     # 1. Get the probability distribution of unique values
@@ -445,6 +446,11 @@ def capacityFactorDistribution(year1=2018, year2=2023):
     entropy_fc2 = calculate_entropy(fc2)
     print(f"Entropy: {entropy_fc1:.4f} bits")
     print(f"Entropy: {entropy_fc2:.4f} bits")
+    # Calculate the default 2-norm (Euclidean norm)
+    fc1_norm = LA.norm(fc1)
+    fc2_norm = LA.norm(fc2)
+    print(f"Euclidean norm: {fc1_norm:.4f} bits")
+    print(f"Euclidean norm: {fc2_norm:.4f} bits")
     ##
     plt.figure(figsize=(12, 6))
     plt.hist(fc1, bins=50, alpha=0.6, label=str(year1), color='#4CAF50', density=True, edgecolor='black')
