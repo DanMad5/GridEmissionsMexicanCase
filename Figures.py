@@ -610,10 +610,8 @@ def growth_by_technology(year1=2018, year2=2023):
     comp = pd.DataFrame({str(year1): s1, str(year2): s2})
     comp['Change %'] = 100.0 * (comp[str(year2)] - comp[str(year1)]) / comp[str(year1)].replace({0: np.nan})
     
-    # Sort by year2 values in descending order (largest to smallest)
     comp = comp.sort_values(by=str(year2), ascending=False)
-
-    # Plot
+    
     ind = np.arange(len(comp))
     width = 0.35
 
@@ -631,7 +629,6 @@ def growth_by_technology(year1=2018, year2=2023):
     y_max = max(comp[str(year1)].max(), comp[str(year2)].max())
     ax.set_ylim(0, y_max * 1.15) 
 
-    # Annotate percentage change above each pair
     for i, (y1, y2, pct) in enumerate(zip(comp[str(year1)].values, comp[str(year2)].values, comp['Change %'].values)):
         if np.isfinite(pct):
             sign = '+' if pct >= 0 else ''
@@ -643,10 +640,5 @@ def growth_by_technology(year1=2018, year2=2023):
         ax.text(i, y_max_pair + 0.02 * y_max, label, ha='center', va='bottom', fontsize=14, fontweight='bold')
 
     plt.tight_layout()
-
-    """# Print summary table to console for debugging
-    print("\nGeneration summary (GWh):")
-    print(comp)"""
-
     plt.show()
 
