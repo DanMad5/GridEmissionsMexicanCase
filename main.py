@@ -61,9 +61,9 @@ print("EFe are: \n",allEFeYear, "\n")
 #Fig 2
 Figures.emissionFactorYears()
 #Fig 3
-Figures.heatmap()
-#Fig 4
 Figures.boxAndViolin()
+#Fig 4
+Figures.heatmap()
 #Fig 5
 Figures.energyTech()
 #Fig 6 
@@ -72,7 +72,7 @@ Figures.capacityFactor()
 Figures.capacityFactorDistribution()
 #Fig 8 map
 StateEmissionsMap.generateEmissionsMap()
-#Fig 9 XGBoost
-Figures.emissionFactorForecast()
-#Fig 10 Percentage Change
+#Fig 9 Percentage Change
 Figures.growth_by_technology()
+#Fig 10 XGBoost
+Figures.emissionFactorForecast()

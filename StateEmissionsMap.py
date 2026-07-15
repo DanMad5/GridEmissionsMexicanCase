@@ -156,7 +156,7 @@ def generateEmissionsMap():
 
     output_file = 'StateEmissionsMap.html'
     m.save(output_file)
-    print(f"Mapa guardado exitosamente en {output_file}")
+    print(f"Map saved succesfully in {output_file}")
     webbrowser.open(output_file)
 
     df_totales = df_resultados.groupby('Technology').sum(numeric_only=True).reset_index()

@@ -8,19 +8,14 @@ from matplotlib.patches import Patch
 from xgboost import XGBRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 import matplotlib as mpl
-##
 from numpy import linalg as LA
-##
+
 def calculate_entropy(series, base=2):
-    # 1. Get the probability distribution of unique values
     probs = series.value_counts(normalize=True)
     
-    # 2. Filter out zero probabilities to avoid log(0) errors
     probs = probs[probs > 0]
     
-    # 3. Apply the Shannon entropy formula
     return -(probs * np.log(probs) / np.log(base)).sum()
-##
 
 base_font = 14
 mpl.rcParams.update({
@@ -38,7 +33,7 @@ def calculateFC(year, cap_df, tech_names):
     cap_year = cap_df[cap_df['Year'] == year].iloc[0]
     return tech_gen.div(cap_year[tech_names])
 
-#Fig 2
+#Fig 2 ----------------------------------------------------------------------------------------------------------------------------------------------------
 def emissionFactorYears(year1=2018, year2=2024):
     base_font = 16
     mpl.rcParams.update({
@@ -68,7 +63,7 @@ def emissionFactorYears(year1=2018, year2=2024):
         ax1.plot(data_to_plot[y].values, label=str(y), color=colors[y], alpha=0.7)
     
     ax1.set_ylabel('Emission Factor [tCO$_2$e/MWh]', fontweight='normal')
-    ax1.set_title('(a) Hourly Emission Factors')
+    ax1.set_title('(a)')
     ax1.legend(loc='upper right', frameon=True)
     ax1.grid(True, alpha=0.3)
     ax1.set_xlim(0, 8760)
@@ -79,7 +74,7 @@ def emissionFactorYears(year1=2018, year2=2024):
     
     ax2.set_xlabel('Time [hour]')
     ax2.set_ylabel('Emission Factor [tCO$_2$e/MWh]')
-    ax2.set_title('(b) 24-hour Moving Average')
+    ax2.set_title('(b)')
     ax2.legend(loc='upper right', frameon=True)
     ax2.grid(True, alpha=0.3)
     ax2.set_xlim(0, 8760)
@@ -87,103 +82,7 @@ def emissionFactorYears(year1=2018, year2=2024):
     plt.tight_layout()
     plt.show()
 
-#Fig 3
-def heatmap(title="Monthly Average Emission Factors - Adjusted (2017–2024)"):
-    base_font = 14
-    mpl.rcParams.update({
-        "font.family": "serif", "font.serif": ["Times New Roman"],
-        "font.size": base_font, "font.weight": "bold",
-        "axes.titlesize": base_font + 4, "axes.labelsize": base_font + 1,
-        "xtick.labelsize": base_font - 1, "ytick.labelsize": base_font - 1,
-        "axes.linewidth": 1.2, "grid.linewidth": 0.3
-    })
-
-    years = [str(y) for y in range(2017, 2025)]
-    months_labels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-    
-    matriz = np.full((len(years), len(months_labels)), np.nan)
-
-    for i, year in enumerate(years):
-        file_path = f"Data/EmissionFactors/EF-MA-Adj/EF-MA-Adj-{year[2:]}.csv"
-        
-        try:
-            df_year = pd.read_csv(file_path)
-            data_col = df_year.iloc[:, -1] 
-            
-            start_date = pd.Timestamp(f'{year}-01-01')
-            time_index = pd.date_range(start=start_date, periods=len(data_col), freq='h')
-            temp_df = pd.DataFrame({'val': data_col.values}, index=time_index)
-            
-            monthly_means = temp_df.resample('ME').mean()
-            
-            for j in range(min(12, len(monthly_means))):
-                matriz[i, j] = round(float(monthly_means.iloc[j, 0]), 4)
-                    
-        except FileNotFoundError:
-            print(f"Warning: {file_path} not found. Skipping {year}.")
-            continue
-
-    promedios = np.nanmean(matriz, axis=1)
-    matriz_ext = np.hstack([matriz, promedios.reshape(-1, 1)]) # 8x13
-
-    vmin_global = np.nanmin(matriz_ext)
-    vmax_global = np.nanmax(matriz_ext)
-    
-    cmap = LinearSegmentedColormap.from_list(
-        "custom_blues",
-        ["#eaf3fb", "#b7d5ea", "#7fb3d4", "#4f86b8", "#2f5f9b", "#1f3f7a"],
-        256
-    )
-
-    fig, ax = plt.subplots(figsize=(12, 5))
-    im = ax.imshow(matriz_ext, aspect='auto', cmap=cmap, vmin=vmin_global, vmax=vmax_global)
-
-    ax.set_xticks(np.arange(13))
-    ax.set_xticklabels(months_labels + ['Average'], rotation=45, ha='right')
-    ax.set_yticks(np.arange(len(years)))
-    ax.set_yticklabels(years)
-    ax.set_xlabel("Month")
-    ax.set_ylabel("Year")
-    ax.set_title(title)
-
-    for i in range(matriz_ext.shape[0]):
-        for j in range(matriz_ext.shape[1]):
-            val = matriz_ext[i, j]
-            if np.isfinite(val):
-                ax.text(j, i, f"{val:.3f}", ha="center", va="center", fontsize=9, color="black")
-
-    ax.axvline(x=11.5, color="black", linestyle="--", linewidth=1.2)
-
-    for j in range(matriz_ext.shape[1]):
-        col_data = matriz_ext[:, j]
-        if np.all(np.isnan(col_data)):
-            continue
-
-        idx_max = int(np.nanargmax(col_data))
-        idx_min = int(np.nanargmin(col_data))
-
-        ax.add_patch(Rectangle(
-            (j - 0.5, idx_max - 0.5), 1, 1,
-            fill=False, edgecolor="red", linewidth=2.2
-        ))
-
-        ax.add_patch(Rectangle(
-            (j - 0.5, idx_min - 0.5), 1, 1,
-            fill=False, edgecolor="green", linewidth=2.2
-        ))
-
-    cbar = fig.colorbar(im, ax=ax, shrink=0.95, pad=0.02)
-    cbar.set_label("Emission Factor [tCO$_2$e/MWh]", rotation=270, labelpad=18)
-    
-    ax.tick_params(direction="in", length=4, width=1)
-    for spine in ax.spines.values():
-        spine.set_edgecolor("black")
-        spine.set_linewidth(1.2)
-
-    plt.tight_layout()
-    plt.show()
-
-#Fig 4-5 
+#Fig 3 ----------------------------------------------------------------------------------------------------------------------------------------------------
 def boxAndViolin():
     base_font = 16
     mpl.rcParams.update({
@@ -293,7 +192,102 @@ def boxAndViolin():
     plt.tight_layout()
     plt.show()
 
-#Fig 6
+#Fig 4 ----------------------------------------------------------------------------------------------------------------------------------------------------
+def heatmap():
+    base_font = 14
+    mpl.rcParams.update({
+        "font.family": "serif", "font.serif": ["Times New Roman"],
+        "font.size": base_font, "font.weight": "bold",
+        "axes.titlesize": base_font + 4, "axes.labelsize": base_font + 1,
+        "xtick.labelsize": base_font - 1, "ytick.labelsize": base_font - 1,
+        "axes.linewidth": 1.2, "grid.linewidth": 0.3
+    })
+
+    years = [str(y) for y in range(2017, 2025)]
+    months_labels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    
+    matriz = np.full((len(years), len(months_labels)), np.nan)
+
+    for i, year in enumerate(years):
+        file_path = f"Data/EmissionFactors/EF-MA-Adj/EF-MA-Adj-{year[2:]}.csv"
+        
+        try:
+            df_year = pd.read_csv(file_path)
+            data_col = df_year.iloc[:, -1] 
+            
+            start_date = pd.Timestamp(f'{year}-01-01')
+            time_index = pd.date_range(start=start_date, periods=len(data_col), freq='h')
+            temp_df = pd.DataFrame({'val': data_col.values}, index=time_index)
+            
+            monthly_means = temp_df.resample('ME').mean()
+            
+            for j in range(min(12, len(monthly_means))):
+                matriz[i, j] = round(float(monthly_means.iloc[j, 0]), 4)
+                    
+        except FileNotFoundError:
+            print(f"Warning: {file_path} not found. Skipping {year}.")
+            continue
+
+    promedios = np.nanmean(matriz, axis=1)
+    matriz_ext = np.hstack([matriz, promedios.reshape(-1, 1)]) # 8x13
+
+    vmin_global = np.nanmin(matriz_ext)
+    vmax_global = np.nanmax(matriz_ext)
+    
+    cmap = LinearSegmentedColormap.from_list(
+        "custom_blues",
+        ["#eaf3fb", "#b7d5ea", "#7fb3d4", "#4f86b8", "#2f5f9b", "#1f3f7a"],
+        256
+    )
+
+    fig, ax = plt.subplots(figsize=(12, 5))
+    im = ax.imshow(matriz_ext, aspect='auto', cmap=cmap, vmin=vmin_global, vmax=vmax_global)
+
+    ax.set_xticks(np.arange(13))
+    ax.set_xticklabels(months_labels + ['Average'], rotation=45, ha='right')
+    ax.set_yticks(np.arange(len(years)))
+    ax.set_yticklabels(years)
+    ax.set_xlabel("Month")
+    ax.set_ylabel("Year")
+
+    for i in range(matriz_ext.shape[0]):
+        for j in range(matriz_ext.shape[1]):
+            val = matriz_ext[i, j]
+            if np.isfinite(val):
+                ax.text(j, i, f"{val:.3f}", ha="center", va="center", fontsize=9, color="black")
+
+    ax.axvline(x=11.5, color="black", linestyle="--", linewidth=1.2)
+
+    for j in range(matriz_ext.shape[1]):
+        col_data = matriz_ext[:, j]
+        if np.all(np.isnan(col_data)):
+            continue
+
+        idx_max = int(np.nanargmax(col_data))
+        idx_min = int(np.nanargmin(col_data))
+
+        ax.add_patch(Rectangle(
+            (j - 0.5, idx_max - 0.5), 1, 1,
+            fill=False, edgecolor="red", linewidth=2.2
+        ))
+
+        ax.add_patch(Rectangle(
+            (j - 0.5, idx_min - 0.5), 1, 1,
+            fill=False, edgecolor="green", linewidth=2.2
+        ))
+
+    cbar = fig.colorbar(im, ax=ax, shrink=0.95, pad=0.02)
+    cbar.set_label("Emission Factor [tCO$_2$e/MWh]", rotation=270, labelpad=18)
+    
+    ax.tick_params(direction="in", length=4, width=1)
+    for spine in ax.spines.values():
+        spine.set_edgecolor("black")
+        spine.set_linewidth(1.2)
+
+    plt.tight_layout()
+    plt.show()
+
+#Fig 5 ----------------------------------------------------------------------------------------------------------------------------------------------------
 def energyTech(year=2024):
     base_font = 14
     mpl.rcParams.update({
@@ -385,7 +379,7 @@ def energyTech(year=2024):
     except Exception as e:
         print(f"Error processing data for {year}: {e}")
 
-#Fig 7
+#Fig 6 ----------------------------------------------------------------------------------------------------------------------------------------------------
 def capacityFactor(year1=2018, year2=2023):
     tech_names = ['EO','FV','BIO','CE','CC','CI','GEO','HE','NU','TC','TG']
     cap_df = pd.read_csv('Data/InstalledCapacity2018-2023.csv')
@@ -403,14 +397,13 @@ def capacityFactor(year1=2018, year2=2023):
     
     plt.xlabel('Hours of the year')
     plt.ylabel('Capacity factor [p.u.]')
-    plt.title(f'Hourly Capacity Factor Comparison: CC ({year1} vs {year2})')
     plt.xlim(0, len(fc2['CC']))
     plt.legend()
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
     plt.show()
 
-#Fig 8
+#Fig 7 ----------------------------------------------------------------------------------------------------------------------------------------------------
 def capacityFactorDistribution(year1=2018, year2=2023):
     tech_names = ['EO','FV','BIO','CE','CC','CI','GEO','HE','NU','TC','TG']
     cap_df = pd.read_csv('Data/InstalledCapacity2018-2023.csv')
@@ -458,7 +451,6 @@ def capacityFactorDistribution(year1=2018, year2=2023):
     plt.axvline(fc1.mean(), color='#2E7D32', linestyle='--', label=f'Avg {year1}', linewidth=2)
     plt.axvline(fc2.mean(), color='darkblue', linestyle='--', label=f'Avg {year2}', linewidth=2)
     
-    plt.title('Capacity Factor Distribution - ' + figName)
     plt.xlabel('Capacity Factor [p.u.]')
     plt.ylabel('Probability Density')
     plt.legend()
@@ -466,9 +458,71 @@ def capacityFactorDistribution(year1=2018, year2=2023):
     plt.tight_layout()
     plt.show()
 
-#Fig 9
+# Fig 9 ----------------------------------------------------------------------------------------------------------------------------------------------------
+def growth_by_technology(year1=2018, year2=2023):
+    techNames = ['EO','FV','BIO','CE','CC','CI','GEO','HE','NU','TC','TG']
+    techNames_english = [
+        'Wind', 'Solar PV', 'Biomass', 'Coal', 'Combined Cycle', 'Internal Combustion',
+        'Geothermal', 'Hydroelectric', 'Nuclear', 'Conventional Thermal', 'Gas Turbine'
+    ]
 
-#Fig 10
+    def _year_sum(y):
+        path = f"Data/CompleteGeneration/completeBrute-{str(y)[-2:]}.csv"
+        df = pd.read_csv(path)
+        sums = {}
+        for i, t in enumerate(techNames):
+            if t in df.columns:
+                sums[techNames_english[i]] = df[t].sum() / 1000.0  # GWh
+            else:
+                sums[techNames_english[i]] = 0.0
+        return pd.Series(sums)
+
+    try:
+        s1 = _year_sum(year1)
+    except FileNotFoundError:
+        print(f"Error: data file for {year1} not found. Expected: Data/CompleteGeneration/completeBrute-{str(year1)[-2:]}.csv")
+        return
+    try:
+        s2 = _year_sum(year2)
+    except FileNotFoundError:
+        print(f"Error: data file for {year2} not found. Expected: Data/CompleteGeneration/completeBrute-{str(year2)[-2:]}.csv")
+        return
+
+    comp = pd.DataFrame({str(year1): s1, str(year2): s2})
+    comp['Change %'] = 100.0 * (comp[str(year2)] - comp[str(year1)]) / comp[str(year1)].replace({0: np.nan})
+    
+    comp = comp.sort_values(by=str(year2), ascending=False)
+    
+    ind = np.arange(len(comp))
+    width = 0.35
+
+    fig, ax = plt.subplots(figsize=(12, 6)) 
+    bars1 = ax.bar(ind - width/2, comp[str(year1)].values, width, label=str(year1), color='#4CAF50', edgecolor='black', alpha=0.75)
+    bars2 = ax.bar(ind + width/2, comp[str(year2)].values, width, label=str(year2), color='blue', edgecolor='black', alpha=0.75)
+
+    ax.set_xticks(ind)
+    ax.set_xticklabels(comp.index, rotation=45, ha='right')
+    ax.set_ylabel('Generation (GWh)')
+    ax.legend()
+    ax.grid(axis='y', alpha=0.25)
+  
+    y_max = max(comp[str(year1)].max(), comp[str(year2)].max())
+    ax.set_ylim(0, y_max * 1.15) 
+
+    for i, (y1, y2, pct) in enumerate(zip(comp[str(year1)].values, comp[str(year2)].values, comp['Change %'].values)):
+        if np.isfinite(pct):
+            sign = '+' if pct >= 0 else ''
+            label = f"{sign}{pct:.1f}%"
+        else:
+            label = "n/a"
+
+        y_max_pair = max(y1, y2)
+        ax.text(i, y_max_pair + 0.02 * y_max, label, ha='center', va='bottom', fontsize=14, fontweight='bold')
+
+    plt.tight_layout()
+    plt.show()
+
+#Fig 10 ----------------------------------------------------------------------------------------------------------------------------------------------------
 def emissionFactorForecast():
     base_font = 14
     mpl.rcParams.update({
@@ -558,7 +612,6 @@ def emissionFactorForecast():
     
     ax.set_xlabel("Time [hour]")
     ax.set_ylabel(r"Emission factor [tCO$_2$e/MWh]")
-    ax.set_title("Emission Factor Forecasting via XGBoost Method")
     ax.set_axisbelow(True)
     ax.tick_params(direction="in", length=4, width=1)
     ax.minorticks_on()
@@ -575,70 +628,3 @@ def emissionFactorForecast():
 
     plt.tight_layout()
     plt.show()
-
-# Fig 10
-
-def growth_by_technology(year1=2018, year2=2023):
-    techNames = ['EO','FV','BIO','CE','CC','CI','GEO','HE','NU','TC','TG']
-    techNames_english = [
-        'Wind', 'Solar PV', 'Biomass', 'Coal', 'Combined Cycle', 'Internal Combustion',
-        'Geothermal', 'Hydroelectric', 'Nuclear', 'Conventional Thermal', 'Gas Turbine'
-    ]
-
-    def _year_sum(y):
-        path = f"Data/CompleteGeneration/completeBrute-{str(y)[-2:]}.csv"
-        df = pd.read_csv(path)
-        sums = {}
-        for i, t in enumerate(techNames):
-            if t in df.columns:
-                sums[techNames_english[i]] = df[t].sum() / 1000.0  # GWh
-            else:
-                sums[techNames_english[i]] = 0.0
-        return pd.Series(sums)
-
-    try:
-        s1 = _year_sum(year1)
-    except FileNotFoundError:
-        print(f"Error: data file for {year1} not found. Expected: Data/CompleteGeneration/completeBrute-{str(year1)[-2:]}.csv")
-        return
-    try:
-        s2 = _year_sum(year2)
-    except FileNotFoundError:
-        print(f"Error: data file for {year2} not found. Expected: Data/CompleteGeneration/completeBrute-{str(year2)[-2:]}.csv")
-        return
-
-    comp = pd.DataFrame({str(year1): s1, str(year2): s2})
-    comp['Change %'] = 100.0 * (comp[str(year2)] - comp[str(year1)]) / comp[str(year1)].replace({0: np.nan})
-    
-    comp = comp.sort_values(by=str(year2), ascending=False)
-    
-    ind = np.arange(len(comp))
-    width = 0.35
-
-    fig, ax = plt.subplots(figsize=(12, 6)) 
-    bars1 = ax.bar(ind - width/2, comp[str(year1)].values, width, label=str(year1), color='#4CAF50', edgecolor='black')
-    bars2 = ax.bar(ind + width/2, comp[str(year2)].values, width, label=str(year2), color='blue', edgecolor='black')
-
-    ax.set_xticks(ind)
-    ax.set_xticklabels(comp.index, rotation=45, ha='right')
-    ax.set_ylabel('Generation (GWh)')
-    ax.set_title(f'Annual generation by technology in Mexico: {year1} vs {year2}')
-    ax.legend()
-    ax.grid(axis='y', alpha=0.25)
-  
-    y_max = max(comp[str(year1)].max(), comp[str(year2)].max())
-    ax.set_ylim(0, y_max * 1.15) 
-
-    for i, (y1, y2, pct) in enumerate(zip(comp[str(year1)].values, comp[str(year2)].values, comp['Change %'].values)):
-        if np.isfinite(pct):
-            sign = '+' if pct >= 0 else ''
-            label = f"{sign}{pct:.1f}%"
-        else:
-            label = "n/a"
-
-        y_max_pair = max(y1, y2)
-        ax.text(i, y_max_pair + 0.02 * y_max, label, ha='center', va='bottom', fontsize=14, fontweight='bold')
-
-    plt.tight_layout()
-    plt.show()
-
