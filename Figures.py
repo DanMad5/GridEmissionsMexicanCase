@@ -64,9 +64,10 @@ def emissionFactorYears(year1=2018, year2=2024):
     
     ax1.set_ylabel('Emission Factor [tCO$_2$e/MWh]', fontweight='normal')
     ax1.set_title('(a)')
-    ax1.legend(loc='upper right', frameon=True)
-    ax1.grid(True, alpha=0.3)
+    ax1.legend(loc='upper right')
+    ax1.grid(True, alpha=0.15)
     ax1.set_xlim(0, 8760)
+    ax1.set_ylim(0.25, 0.53)
 
     for y in target_years:
         ma = data_to_plot[y].rolling(window=24, min_periods=1).mean()
@@ -75,9 +76,10 @@ def emissionFactorYears(year1=2018, year2=2024):
     ax2.set_xlabel('Time [hour]')
     ax2.set_ylabel('Emission Factor [tCO$_2$e/MWh]')
     ax2.set_title('(b)')
-    ax2.legend(loc='upper right', frameon=True)
-    ax2.grid(True, alpha=0.3)
+    ax2.legend(loc='upper right')
+    ax2.grid(True, alpha=0.15)
     ax2.set_xlim(0, 8760)
+    ax2.set_ylim(0.25, 0.53)
 
     plt.tight_layout()
     plt.show()
@@ -159,7 +161,7 @@ def boxAndViolin():
     ref_vals = [0.582, 0.527, 0.505, 0.494, 0.423, 0.435, 0.438, 0.444]
     ref_dict = dict(zip([str(y) for y in range(2017, 2025)], ref_vals))
     valid_refs = [ref_dict[y] for y in valid_years]
-    ax.scatter(base_pos, valid_refs, marker='D', s=45, facecolor='red', edgecolor='black', zorder=5, label='Reported EF')
+    ax.scatter(base_pos, valid_refs, marker='D', s=80, facecolor='red', edgecolor='black', zorder=5, label='Reported EF')
 
     # Formatting Aesthetics
     ax.set_xticks(base_pos)
@@ -182,7 +184,7 @@ def boxAndViolin():
     legend_elements = [
         Patch(facecolor=blue_rgba, edgecolor="black", label='Raw data (no adjustment)'),
         Patch(facecolor=green_rgba, edgecolor="black", label='Adjusted (multiple regression)'),
-        mpl.lines.Line2D([0], [0], marker='D', linestyle='None', markersize=6, markerfacecolor='red', markeredgecolor='black', label='Reported EF')
+        mpl.lines.Line2D([0], [0], marker='D', linestyle='None', markersize=8, markerfacecolor='red', markeredgecolor='black', label='Reported EF')
     ]
     leg = ax.legend(handles=legend_elements, loc='upper right', frameon=True)
     leg.get_frame().set_edgecolor("black")
@@ -236,7 +238,7 @@ def heatmap():
     
     cmap = LinearSegmentedColormap.from_list(
         "custom_blues",
-        ["#eaf3fb", "#b7d5ea", "#7fb3d4", "#4f86b8", "#2f5f9b", "#1f3f7a"],
+        ["#eaf3fb", "#d8ebf8", "#7fb3d4", "#558bbd", "#1d5599", "#07307C"],
         256
     )
 
@@ -249,14 +251,22 @@ def heatmap():
     ax.set_yticklabels(years)
     ax.set_xlabel("Month")
     ax.set_ylabel("Year")
+    
+    legend_elements = [
+        Patch(facecolor="none", edgecolor="red", label='Highest emission factor per month'),
+        Patch(facecolor="none", edgecolor="green", label='Lowest emission factor per month'),
+        mpl.lines.Line2D([0], [0], linestyle='--', linewidth=3, color='black', label='Year average division')
+    ]
+    ax.legend(handles=legend_elements, bbox_to_anchor=(1.05, 1.3), loc='upper right')
+
 
     for i in range(matriz_ext.shape[0]):
         for j in range(matriz_ext.shape[1]):
             val = matriz_ext[i, j]
             if np.isfinite(val):
-                ax.text(j, i, f"{val:.3f}", ha="center", va="center", fontsize=9, color="black")
+                ax.text(j, i, f"{val:.3f}", ha="center", va="center", fontsize=13, color="black")
 
-    ax.axvline(x=11.5, color="black", linestyle="--", linewidth=1.2)
+    ax.axvline(x=11.5, color="black", linestyle="--", linewidth=4)
 
     for j in range(matriz_ext.shape[1]):
         col_data = matriz_ext[:, j]
@@ -379,7 +389,7 @@ def energyTech(year=2024):
     except Exception as e:
         print(f"Error processing data for {year}: {e}")
 
-#Fig 6 ----------------------------------------------------------------------------------------------------------------------------------------------------
+""" #Fig 6 ----------------------------------------------------------------------------------------------------------------------------------------------------
 def capacityFactor(year1=2018, year2=2023):
     tech_names = ['EO','FV','BIO','CE','CC','CI','GEO','HE','NU','TC','TG']
     cap_df = pd.read_csv('Data/InstalledCapacity2018-2023.csv')
@@ -402,15 +412,89 @@ def capacityFactor(year1=2018, year2=2023):
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
     plt.show()
-
+ """
 #Fig 7 ----------------------------------------------------------------------------------------------------------------------------------------------------
-def capacityFactorDistribution(year1=2018, year2=2023):
+""" def capacityFactorDistribution(year1=2018, year2=2023):
     tech_names = ['EO','FV','BIO','CE','CC','CI','GEO','HE','NU','TC','TG']
     cap_df = pd.read_csv('Data/InstalledCapacity2018-2023.csv')
     
     name = 'CC'
     figName = 'Combined Cycle'
     
+    fc1 = calculateFC(year1, cap_df, tech_names)[name].dropna()
+    fc2 = calculateFC(year2, cap_df, tech_names)[name].dropna()
+
+    print(f"\n{'='*70}\nCOMBINED CYCLE ANALYSIS: {year1} vs {year2}\n{'='*70}")
+    stats_rows = [
+        ('Mean', fc1.mean(), fc2.mean()),
+        ('Median', fc1.median(), fc2.median()),
+        ('Max', fc1.max(), fc2.max()),
+        ('Min', fc1.min(), fc2.min()),
+        ('Std Dev', fc1.std(), fc2.std())
+    ]
+    
+    print(f"{'Statistic':<20} {year1:<12} {year2:<12} {'Diff':<12} {'Change %':<12}")
+    print("-" * 70)
+    for name, v1, v2 in stats_rows:
+        diff = v2 - v1
+        pct = (diff / v1 * 100) if v1 != 0 else 0
+        print(f"{name:<20} {v1:.4f}       {v2:.4f}       {diff:+.4f}      {pct:+.1f}%")
+
+    fc1 = fc1[fc1 >= 0.1]
+    fc2 = fc2[fc2 >= 0.1]
+    ##
+    # Calculate for a single column
+    entropy_fc1 = calculate_entropy(fc1)
+    entropy_fc2 = calculate_entropy(fc2)
+    print(f"Entropy: {entropy_fc1:.4f} bits")
+    print(f"Entropy: {entropy_fc2:.4f} bits")
+    # Calculate the default 2-norm (Euclidean norm)
+    fc1_norm = LA.norm(fc1)
+    fc2_norm = LA.norm(fc2)
+    print(f"Euclidean norm: {fc1_norm:.4f} bits")
+    print(f"Euclidean norm: {fc2_norm:.4f} bits")
+    ##
+    plt.figure(figsize=(12, 6))
+    plt.hist(fc1, bins=50, alpha=0.6, label=str(year1), color='#4CAF50', density=True, edgecolor='black')
+    plt.hist(fc2, bins=50, alpha=0.6, label=str(year2), color='blue', density=True, edgecolor='black')
+    plt.axvline(fc1.mean(), color='#2E7D32', linestyle='--', label=f'Avg {year1}', linewidth=2)
+    plt.axvline(fc2.mean(), color='darkblue', linestyle='--', label=f'Avg {year2}', linewidth=2)
+    
+    plt.xlabel('Capacity Factor [p.u.]')
+    plt.ylabel('Probability Density')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.show() """
+
+# Fig 6-7 ----------------------------------------------------------------------------------------------------------------------------------------------------
+def capacityFactor(year1=2018, year2=2023):
+    # Fig 6a ----------------------------------------------------------------------------------------------------------------------------------------------------
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10), sharex=False)
+
+    tech_names = ['EO','FV','BIO','CE','CC','CI','GEO','HE','NU','TC','TG']
+    cap_df = pd.read_csv('Data/InstalledCapacity2018-2023.csv')
+
+    fc1 = calculateFC(year1, cap_df, tech_names)
+    fc2 = calculateFC(year2, cap_df, tech_names)
+    name = 'CC'
+    figName = 'Combined Cycle'
+    fc2[name]
+    ax1.plot(fc2[name], color='blue', alpha=0.8, linewidth=1, label=f'{year2} - ' + figName)
+    ax1.plot(fc1[name], color='#4CAF50', alpha=0.8, linewidth=1, label=f'{year1} - ' + figName)
+    ax1.axhline(y=0.35, color='red', linestyle='--', linewidth=3, label='Capacity factor limit 35%')
+
+    ax1.set_xlabel('Hours of the year')
+    ax1.set_ylabel('Capacity factor [p.u.]')
+    ax1.set_xlim(0, len(fc2['CC']))
+    ax1.set_title('(a)')
+    ax1.legend()
+    ax1.grid(True, alpha=0.3)
+    
+    #Fig 6b ----------------------------------------------------------------------------------------------------------------------------------------------------
+
+    name = 'CC'
+    figName = 'Combined Cycle'
 
     fc1 = calculateFC(year1, cap_df, tech_names)[name].dropna()
     fc2 = calculateFC(year2, cap_df, tech_names)[name].dropna()
@@ -445,16 +529,18 @@ def capacityFactorDistribution(year1=2018, year2=2023):
     print(f"Euclidean norm: {fc1_norm:.4f} bits")
     print(f"Euclidean norm: {fc2_norm:.4f} bits")
     ##
-    plt.figure(figsize=(12, 6))
-    plt.hist(fc1, bins=50, alpha=0.6, label=str(year1), color='#4CAF50', density=True, edgecolor='black')
-    plt.hist(fc2, bins=50, alpha=0.6, label=str(year2), color='blue', density=True, edgecolor='black')
-    plt.axvline(fc1.mean(), color='#2E7D32', linestyle='--', label=f'Avg {year1}', linewidth=2)
-    plt.axvline(fc2.mean(), color='darkblue', linestyle='--', label=f'Avg {year2}', linewidth=2)
+    ax2.hist(fc1, bins=50, alpha=0.6, label=str(year1), color='#4CAF50', density=True, edgecolor='black')
+    ax2.hist(fc2, bins=50, alpha=0.6, label=str(year2), color='blue', density=True, edgecolor='black')
+    ax2.axvline(fc1.mean(), color='#2E7D32', linestyle='--', label=f'Avg {year1}', linewidth=2)
+    ax2.axvline(fc2.mean(), color='darkblue', linestyle='--', label=f'Avg {year2}', linewidth=2)
+
+    ax2.set_xlim(0, 1)
+    ax2.set_xlabel('Capacity Factor [p.u.]')
+    ax2.set_ylabel('Probability Density')
+    ax2.set_title('(b)')
+    ax2.legend()
+    ax2.grid(True, alpha=0.3)
     
-    plt.xlabel('Capacity Factor [p.u.]')
-    plt.ylabel('Probability Density')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
     plt.tight_layout()
     plt.show()
 
@@ -523,7 +609,7 @@ def growth_by_technology(year1=2018, year2=2023):
     plt.show()
 
 #Fig 10 ----------------------------------------------------------------------------------------------------------------------------------------------------
-def emissionFactorForecast():
+def emissionFactorProjection():
     base_font = 14
     mpl.rcParams.update({
         "font.family": "serif", "font.serif": ["Times New Roman"],
@@ -607,8 +693,8 @@ def emissionFactorForecast():
     k_test = test_df["k"].to_numpy()
 
     ax.plot(k_all, data["Emissions"], color="#0072B2", label="Real Data", linewidth=1.8)
-    ax.plot(k_test, y_pred, linestyle=":", color="#E69F00", linewidth=2.2, label="XGBoost Forecast")
-    ax.axvline(k_test[0], linestyle="--", color="gray", linewidth=1.2, label="Train/Forecast split")
+    ax.plot(k_test, y_pred, linestyle=":", color="#E69F00", linewidth=2.2, label="XGBoost Projection")
+    ax.axvline(k_test[0], linestyle="--", color="gray", linewidth=1.2, label="Train/Projection split")
     
     ax.set_xlabel("Time [hour]")
     ax.set_ylabel(r"Emission factor [tCO$_2$e/MWh]")
