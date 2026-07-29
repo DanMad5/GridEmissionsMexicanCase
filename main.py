@@ -72,7 +72,9 @@ Figures.capacityFactor()
 Figures.capacityFactorDistribution()
 #Fig 8 map
 StateEmissionsMap.generateEmissionsMap()
-#Fig 9 XGBoost
+#Fig 9 Percentage Change
+Figures.growth_by_technology_A()
+Figures.growth_by_technology_B()
+#Fig 10 XGBoost
 Figures.emissionFactorForecast()
-#Fig 10 Percentage Change
-Figures.growth_by_technology()
+
