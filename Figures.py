@@ -465,9 +465,170 @@ def capacityFactorDistribution(year1=2018, year2=2023):
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
     plt.show()
+    
+#Fig 9 (A)
 
-#Fig 9
+def growth_by_technology_A(year1=2018, year2=2023):
+    techNames = ['EO','FV','BIO','CE','CC','CI','GEO','HE','NU','TC','TG']
+    techNames_english = [
+        'Wind', 'Solar PV', 'Biomass', 'Coal', 'Combined Cycle', 'Internal Combustion',
+        'Geothermal', 'Hydroelectric', 'Nuclear', 'Conventional Thermal', 'Gas Turbine'
+    ]
 
+    def _year_sum(y):
+        path = f"Data/CompleteGeneration/completeBrute-{str(y)[-2:]}.csv"
+        df = pd.read_csv(path)
+        sums = {}
+        for i, t in enumerate(techNames):
+            if t in df.columns:
+                sums[techNames_english[i]] = df[t].sum() / 1000.0  # GWh
+            else:
+                sums[techNames_english[i]] = 0.0
+        return pd.Series(sums)
+
+    try:
+        s1 = _year_sum(year1)
+    except FileNotFoundError:
+        print(f"Error: data file for {year1} not found. Expected: Data/CompleteGeneration/completeBrute-{str(year1)[-2:]}.csv")
+        return
+    try:
+        s2 = _year_sum(year2)
+    except FileNotFoundError:
+        print(f"Error: data file for {year2} not found. Expected: Data/CompleteGeneration/completeBrute-{str(year2)[-2:]}.csv")
+        return
+
+    comp = pd.DataFrame({str(year1): s1, str(year2): s2})
+    comp['Change %'] = 100.0 * (comp[str(year2)] - comp[str(year1)]) / comp[str(year1)].replace({0: np.nan})
+    
+    # Sort by year2 values in descending order (largest to smallest)
+    
+    #comp = comp.sort_values(by=str(year2), ascending=False) #GENERATION
+    comp = comp.sort_values(by='Change %', ascending=False, na_position='last') #%CHANGE
+
+
+    # Plot
+    ind = np.arange(len(comp))
+    width = 0.35
+
+    fig, ax = plt.subplots(figsize=(12, 6)) 
+    bars1 = ax.bar(ind - width/2, comp[str(year1)].values, width, label=str(year1), color='#4CAF50', edgecolor='black')
+    bars2 = ax.bar(ind + width/2, comp[str(year2)].values, width, label=str(year2), color='blue', edgecolor='black')
+
+    ax.set_xticks(ind)
+    ax.set_xticklabels(comp.index, rotation=45, ha='right')
+    ax.set_ylabel('Generation (GWh)')
+    ax.set_title(f'Annual generation by technology in Mexico: {year1} vs {year2}')
+    ax.legend()
+    ax.grid(axis='y', alpha=0.25)
+  
+    y_max = max(comp[str(year1)].max(), comp[str(year2)].max())
+    ax.set_ylim(0, y_max * 1.15) 
+
+    # Annotate percentage change above each pair
+    for i, (y1, y2, pct) in enumerate(zip(comp[str(year1)].values, comp[str(year2)].values, comp['Change %'].values)):
+        if np.isfinite(pct):
+            sign = '+' if pct >= 0 else ''
+            label = f"{sign}{pct:.1f}%"
+        else:
+            label = "n/a"
+
+        y_max_pair = max(y1, y2)
+        ax.text(i, y_max_pair + 0.02 * y_max, label, ha='center', va='bottom', fontsize=14, fontweight='bold')
+
+    plt.tight_layout()
+    plt.show()
+
+#Fig 9 (B)
+def growth_by_technology_B(year1=2018, year2=2023):
+
+    
+    tech_codes = ['EO', 'FV', 'BIO', 'CE', 'CC', 'CI', 'GEO', 'HE', 'NU', 'TC', 'TG']
+    tech_names = [
+        'Wind', 'Solar PV', 'Biomass', 'Coal', 'Combined Cycle', 'Internal Combustion',
+        'Geothermal', 'Hydroelectric', 'Nuclear', 'Conventional Thermal', 'Gas Turbine'
+    ]
+
+    POSITIVE_COLOR = '#4CAF50'
+    NEGATIVE_COLOR = '#E24B4A'
+    OUTLIER_THRESHOLD = 200        # % values above this value are treated as outliers
+    OUTLIER_SCALE = 1.4            # scaling factor for x-axis limit
+    RIGHT_MARGIN_FRAC = 0.15       # extra space (right) for outlier labels
+    LEFT_MARGIN_FRAC = 0.10        # extra space (left) for negative labels
+    BAR_HEIGHT = 0.6
+    LABEL_FONTSIZE = 14
+    
+    def _year_sum(year):
+        
+        path = f"Data/CompleteGeneration/completeBrute-{str(year)[-2:]}.csv"
+        df = pd.read_csv(path)
+        return pd.Series({
+            name: (df[code].sum() / 1000.0 if code in df.columns else 0.0)
+            for code, name in zip(tech_codes, tech_names)
+        })
+
+    try:
+        gen_year1 = _year_sum(year1)
+        gen_year2 = _year_sum(year2)
+    except FileNotFoundError as e:
+        print(f"Error: data file not found ({e.filename}).")
+        return
+    
+    comp = pd.DataFrame({str(year1): gen_year1, str(year2): gen_year2})
+    comp['Change %'] = (
+        100.0 * (comp[str(year2)] - comp[str(year1)])
+        / comp[str(year1)].replace({0: np.nan})
+    )
+
+    # Sort by % change, descending (largest growth on top)
+    comp = comp.dropna(subset=['Change %']).sort_values(by='Change %', ascending=False)
+
+    bar_colors = [POSITIVE_COLOR if v >= 0 else NEGATIVE_COLOR for v in comp['Change %']]
+
+    normal_vals = comp['Change %'][comp['Change %'].abs() < OUTLIER_THRESHOLD]
+    x_limit = (
+        normal_vals.abs().max() * OUTLIER_SCALE
+        if not normal_vals.empty
+        else comp['Change %'].abs().max() * 1.1
+    )
+
+    negative_vals = comp['Change %'][comp['Change %'] < 0]
+    x_min = negative_vals.min() * 1.2 if not negative_vals.empty else -10
+    x_min = min(x_min, -10)
+
+    right_margin = x_limit * RIGHT_MARGIN_FRAC
+    left_margin = abs(x_min) * LEFT_MARGIN_FRAC
+
+    fig, ax = plt.subplots(figsize=(12, max(6, len(comp) * 0.55)))
+
+    bars = ax.barh(comp.index, comp['Change %'], height=BAR_HEIGHT,
+                    color=bar_colors, edgecolor='black')
+    ax.invert_yaxis()  # largest growth on top
+
+    ax.axvline(0, color='black', linewidth=0.8)
+    ax.set_xlim(x_min - left_margin, x_limit + right_margin)
+    ax.set_xlabel('Change percentage (%)')
+    ax.set_title(f'Annual generation change by technology in Mexico: {year1} vs {year2}')
+    ax.grid(axis='x', alpha=0.25)
+
+    for bar, val in zip(bars, comp['Change %']):
+        sign = '+' if val >= 0 else ''
+        label = f"{sign}{val:.1f}%"
+
+        if val > x_limit:
+            # Clip the outlier bar visually and place its label past the clip point
+            bar.set_width(x_limit * 0.97)
+            label_x = x_limit * 0.97 + x_limit * 0.02
+            ax.text(label_x, bar.get_y() + bar.get_height() / 2, label,
+                    va='center', ha='left', fontsize=LABEL_FONTSIZE, fontweight='bold')
+        else:
+            offset = x_limit * 0.02 if val >= 0 else -x_limit * 0.02
+            ax.text(val + offset, bar.get_y() + bar.get_height() / 2, label,
+                    va='center', ha='left' if val >= 0 else 'right',
+                    fontsize=LABEL_FONTSIZE, fontweight='bold')
+
+    plt.tight_layout()
+    plt.show()
+    
 #Fig 10
 def emissionFactorForecast():
     base_font = 14
